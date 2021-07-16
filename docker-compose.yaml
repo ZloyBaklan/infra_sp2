@@ -11,20 +11,17 @@ services:
         volumes:
             - postgres_data:/var/lib/postgresql/data/
         env_file:
-            - ./envfile.env
+            - ./.env.example
     web:
         build: .
         restart: always
-        command: gunicorn api_yamdb.wsgi:application --bind 0.0.0.0:8000
-        ports:
-            - '8000:8000'
         volumes:
             - static_value:/code/static/
             - media_value:/code/media/
         depends_on:
             - db
         env_file:
-            - ./envfile.env
+            - ./.env.example
     nginx:
         image: nginx:1.19.3
         ports:
